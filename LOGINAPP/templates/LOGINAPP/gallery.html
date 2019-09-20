@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+    <title>Shriya's Gallery</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>   
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+  
+    <script type="text/javascript">
+
+    function imgloop(){
+    for(var i=1;i<='{{ data.n }}';i++){
+    var imgg = new Image(140,140);
+    imgg.className="i";
+    var url = "img/" + i +".jpg";
+    {% static "" as baseurl %}
+    imgg.src="{{ baseurl }}" +'css/img/'+ i +'.jpg';
+    imgg.id="img" + i;
+    var src = document.getElementById("row");
+    src.appendChild(imgg);
+
+    }
+    
+    for(var i=1;i<='{{ data.n }}';i++){
+    var name = "img" + i;
+    var expanded = document.getElementById('expand');
+    var img = document.getElementById(name);
+    var expandedImg = document.getElementById("expand_content");
+    var base_textText = document.getElementById("base_text");
+    img.onclick = function(){
+      expanded.style.display = "block";
+      expandedImg.src = this.src;
+    }
+
+    var span = document.getElementsByClassName("minimize")[0];
+
+
+    span.onclick = function() { 
+      expanded.style.display = "none";
+    }
+
+    }
+
+    }
+    </script>
+    </head>
+    <body onload="imgloop()">
+
+     <nav id="n" class="navbar navbar-expand-lg">
+          <div class="flex"><span id="company">Shriya's Gallery</span><img src="{% static 'css/img/logo.jpg' %}" class="logo"></div>
+    </nav>
+    <div class="container-fluid">
+    <div class="row" id="row">
+
+
+
+    </div>
+    </div>
+
+    <div id="expand" class="expand">
+      <span class="minimize"><i class="fa fa-eye-slash"></i></span>
+      <img class="expand_content" id="expand_content">
+      <div id="base_text"></div>
+    </div>
+
+    </body>
+    </html>
+
